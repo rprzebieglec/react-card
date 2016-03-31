@@ -4,7 +4,7 @@ var Home = React.createClass({
     render: function () {
         return (
             <div>
-                Hello from Home
+                <News news="{news}"/>
             </div>
         );
     }
