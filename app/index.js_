@@ -1,0 +1,70 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+var PropTypes = React.PropTypes;
+ //var routes = require('./config/routes');
+
+var newses = require('json!./newses.json');
+
+function NewsPic (props) {
+    return (
+      <img src={props.imageUrl} alt={props.title} style={{height:100, width:100}} />
+    );
+};
+
+function NewsTitle (props) {
+    return (
+      <h1>{props.title}</h1>
+    );
+};
+
+NewsTitle.PropTypes = {
+  title: PropTypes.string.isRequired
+}
+
+var News = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <NewsPic imageUrl={this.props.news.image} imageAlt={this.props.news.title}/>
+        <NewsTitle title={this.props.news.title} />
+      </div>
+    )
+  }
+});
+
+var NewsList = React.createClass({
+  render: function () {
+      var newses = this.props.newses.map(function(news) {
+        return (
+          <News news={news} />
+        );
+      });
+
+      return (
+        <div>
+          {newses}
+        </div>
+      );
+  }
+});
+
+var App = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <div> Hello, you have { this.props.newses.length } newses.</div>
+        <NewsList newses={ this.props.newses }/>
+      </div>
+    )
+  }
+});
+
+ReactDOM.render(
+  <App newses={newses} />,
+  document.getElementById('app')
+);
+
+// ReactDOM.render(
+//   routes,
+//   document.getElementById('app')
+// );
